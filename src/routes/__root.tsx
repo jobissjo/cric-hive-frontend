@@ -122,21 +122,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 <span className="font-label-md text-label-md">Predictions</span>
               </Link>
 
-              <div className="opacity-50 pointer-events-none mt-2">
-                <div className="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant">
-                  <span className="material-symbols-outlined">notifications</span>
-                  <span className="font-label-md text-label-md">Notifications</span>
-                </div>
-              </div>
-
-              <Link
-                to="/profile"
-                className="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant hover:text-neon-green hover:bg-neon-green/5 hover:translate-x-0.5 transition-all duration-200"
-                activeProps={{ className: 'flex items-center gap-sm px-md py-sm rounded-xl text-neon-green font-bold border-r-4 border-neon-green bg-neon-green/10' }}
-              >
-                <span className="material-symbols-outlined">person</span>
-                <span className="font-label-md text-label-md">Profile</span>
-              </Link>
               
               <div className="opacity-50 pointer-events-none mt-2">
                 <div className="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant">
@@ -154,15 +139,18 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             </Link>
 
             <div className="mt-auto flex items-center gap-sm pt-md border-t border-white/5">
-              <img 
-                alt="Profile avatar" 
-                className="w-10 h-10 rounded-full border border-primary/20 object-cover" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtA5hTcX3SQLPzQLmJ7u0jjENR40XNuI_cqbJbCHRXih623sMuWk6ng1WEkjy11DiajJ5el445dwymFx6ouWLk6fb0I3t2Cegb6_kpFZFpJiCcFipVgANiXsGOWw0Uj8gjWrNZtUwUjrkJGuJmFwqprF3RTp1-k3vR2UisWoTDP2cSdWXQiyUlCrDknXy3VYkdNChHWYmA9d-QaMYv1Mz__4sOMMcbsAgAoPN-FNQ3WzMEDx8l0tbMjZKTX3_uyQoNOFT3CppKfGs"
-              />
-              <div>
-                <p className="font-label-md text-label-md font-semibold text-primary">V. Kohli</p>
-                <p className="text-[12px] text-on-surface-variant">@KingKohli</p>
-              </div>
+              <Link to="/profile" className="flex items-center gap-sm w-full hover:bg-neon-green/5 rounded-xl px-sm py-xs">
+                <img
+                  alt="Profile avatar"
+                  className="w-10 h-10 rounded-full border border-primary/20 object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtA5hTcX3SQLPzQLmJ7u0jjENR40XNuI_cqbJbCHRXih623sMuWk6ng1WEkjy11DiajJ5el445dwymFx6ouWLk6fb0I3t2Cegb6_kpFZFpJiCcFipVgANiXsGOWw0Uj8gjWrNZtUwUjrkJGuJmFwqprF3RTp1-k3vR2UisWoTDP2cSdWXQiyUlCrDknXy3VYkdNChHWYmA9d-QaMYv1Mz__4sOMMcbsAgAoPN-FNQ3WzMEDx8l0tbMjZKTX3_uyQoNOFT3CppKfGs"
+                />
+                <div className="flex-1 text-left">
+                  <div className="font-label-md text-label-md font-semibold text-on-surface">Your Name</div>
+                  <div className="text-xs text-on-surface-variant">View profile</div>
+                </div>
+                <span className="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+              </Link>
             </div>
           </aside>
           
