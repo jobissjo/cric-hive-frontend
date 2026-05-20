@@ -1,4 +1,4 @@
-import { Link, Outlet, ScrollRestoration, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router'
+import { Link, Outlet, ScrollRestoration, createRootRoute, HeadContent, Scripts, useRouterState } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState, useEffect } from 'react'
 import appCss from '../styles.css?url'
@@ -41,6 +41,8 @@ function Shell({ children }: { children: React.ReactNode }) {
 function RootDocument({ children }: { children: React.ReactNode }) {
   // Mobile search toggle
   const [searchFocused, setSearchFocused] = useState(false)
+  const pathname = useRouterState({ select: (state) => state.location.pathname })
+  const isAdminRoute = pathname.startsWith('/admin')
   
   // Parallax parallax effect for background
   useEffect(() => {
@@ -55,6 +57,22 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
+
+  if (isAdminRoute) {
+    return (
+      <html lang="en" suppressHydrationWarning className="dark">
+        <head>
+          <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+          <HeadContent />
+        </head>
+        <body className="bg-[#090d12] text-on-surface font-body-md overflow-x-hidden custom-scrollbar">
+          <main className="min-h-screen">{children}</main>
+          <ScrollRestoration />
+          <Scripts />
+        </body>
+      </html>
+    )
+  }
 
   return (
     <html lang="en" suppressHydrationWarning className="dark">
