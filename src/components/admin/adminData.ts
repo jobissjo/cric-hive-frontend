@@ -1,4 +1,4 @@
-export type AdminTab = 'grounds' | 'players' | 'tournaments' | 'summaries' | 'matchups'
+export type AdminTab = 'dashboard' | 'grounds' | 'players' | 'tournaments' | 'summaries' | 'matchups'
 
 export type AdminRow = {
   id: string
@@ -54,6 +54,7 @@ export const battingMetrics = [
 export const bowlingMetrics = ['Matches', 'Innings', 'Balls', 'Runs', 'Maidens', 'Wickets', 'Avg', 'Eco', 'SR', 'BBI', 'BBM', '4w', '5w', '10w']
 
 export const tabs: { id: AdminTab; label: string; icon: string }[] = [
+  { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
   { id: 'grounds', label: 'Grounds', icon: 'stadium' },
   { id: 'players', label: 'Players', icon: 'groups' },
   { id: 'tournaments', label: 'Cricket Tournaments', icon: 'emoji_events' },
@@ -115,7 +116,7 @@ export function createSummary(metrics: string[], defaults?: Record<string, Parti
         IPL: defaults?.[metric]?.IPL ?? '0',
       },
     ]),
-  ) as SummaryTable
+  )
 }
 
 export function createEmptyPlayer(): PlayerProfile {

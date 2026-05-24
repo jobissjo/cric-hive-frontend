@@ -1,18 +1,20 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
+import { AdminDashboard } from '../components/admin/AdminDashboard'
 import { AdminLogin } from '../components/admin/AdminLogin'
 import { CrudPanel } from '../components/admin/AdminTable'
 import { MatchSummaryPanel } from '../components/admin/MatchSummaryPanel'
 import { PlayersPanel } from '../components/admin/PlayersPanel'
+import type { AdminTab } from '../components/admin/adminData'
 import {
   groundColumns,
   initialGrounds,
   initialMatchups,
+  initialPlayers,
   initialTournaments,
   matchupColumns,
   tabs,
   tournamentColumns,
-  type AdminTab,
 } from '../components/admin/adminData'
 
 export const Route = createFileRoute('/admin')({ component: AdminPage })
@@ -22,7 +24,7 @@ function AdminPage() {
     if (typeof window === 'undefined') return false
     return window.localStorage.getItem('crichive_admin_auth') === 'true'
   })
-  const [activeTab, setActiveTab] = useState<AdminTab>('grounds')
+  const [activeTab, setActiveTab] = useState<AdminTab>('dashboard')
 
   if (!isAuthenticated) {
     return <AdminLogin onLogin={() => setIsAuthenticated(true)} />
@@ -35,7 +37,7 @@ function AdminPage() {
           <div>
             <p className="text-xs font-black uppercase tracking-[0.22em] text-neon-green">CricHive Admin</p>
             <h1 className="font-display text-3xl font-black tracking-tight">Operations Console</h1>
-            <p className="text-sm text-on-surface-variant">Minimal table management for grounds, players, tournaments, match summaries, and matchups.</p>
+            <p className="text-sm text-on-surface-variant">Dashboard, data management, match summaries, and prediction matchup controls.</p>
           </div>
           <button
             onClick={() => {
@@ -69,6 +71,15 @@ function AdminPage() {
           </aside>
 
           <main className="min-w-0">
+            {activeTab === 'dashboard' && (
+              <AdminDashboard
+                grounds={initialGrounds}
+                players={initialPlayers}
+                tournaments={initialTournaments}
+                matchups={initialMatchups}
+                onOpenTab={setActiveTab}
+              />
+            )}
             {activeTab === 'grounds' && <CrudPanel title="Grounds" columns={groundColumns} initialRows={initialGrounds} />}
             {activeTab === 'players' && <PlayersPanel tournaments={initialTournaments} />}
             {activeTab === 'tournaments' && <CrudPanel title="Cricket Tournaments" columns={tournamentColumns} initialRows={initialTournaments} />}

@@ -7,12 +7,13 @@ export function CrudPanel({ title, columns, initialRows }: { title: string; colu
     () => Object.fromEntries(columns.map((column) => [column.key, ''])) as AdminRow,
     [columns],
   )
-  const [draft, setDraft] = useState<AdminRow>({ id: '', ...emptyDraft })
+  const [draft, setDraft] = useState<AdminRow>({ ...emptyDraft, id: '' })
   const [editingId, setEditingId] = useState<string | null>(null)
 
   function saveRow() {
+    const { id: _draftId, ...draftFields } = draft
     const row: AdminRow = {
-      ...draft,
+      ...draftFields,
       id: editingId ?? `${title.toLowerCase().replace(/\W+/g, '-')}-${Date.now()}`,
     }
 
@@ -22,7 +23,7 @@ export function CrudPanel({ title, columns, initialRows }: { title: string; colu
       setRows((currentRows) => [row, ...currentRows])
     }
 
-    setDraft({ id: '', ...emptyDraft })
+    setDraft({ ...emptyDraft, id: '' })
     setEditingId(null)
   }
 
@@ -54,7 +55,7 @@ export function CrudPanel({ title, columns, initialRows }: { title: string; colu
           {editingId && (
             <button
               onClick={() => {
-                setDraft({ id: '', ...emptyDraft })
+                setDraft({ ...emptyDraft, id: '' })
                 setEditingId(null)
               }}
               className="rounded-xl border border-white/10 px-4 py-2 text-sm font-bold text-on-surface-variant"
