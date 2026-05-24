@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import type { CreatePostInput } from '../services/mockApi'
 import { mockApi } from '../services/mockApi'
 
 // Query keys for caching
@@ -65,7 +66,7 @@ export function useVoteInPoll() {
 export function useCreatePost() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (content: string) => mockApi.createPost(content),
+    mutationFn: (input: CreatePostInput) => mockApi.createPost(input),
     onSuccess: (updatedPosts) => {
       queryClient.setQueryData(cricketQueryKeys.feedPosts, updatedPosts)
     },

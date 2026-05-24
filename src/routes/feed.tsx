@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import type { FormEvent } from 'react'
 import { useState } from 'react'
 import { useFeedPosts, useLikePost, useVoteInPoll, useCreatePost } from '../hooks/useCricketData'
 
@@ -11,15 +12,45 @@ function Feed() {
   const { mutate: createPost, isPending: isCreating } = useCreatePost()
 
   const [newPostContent, setNewPostContent] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
+  const [pollQuestion, setPollQuestion] = useState('')
+  const [pollOptions, setPollOptions] = useState(['', ''])
+  const [showImageInput, setShowImageInput] = useState(false)
+  const [showPollInput, setShowPollInput] = useState(false)
 
-  const handleSubmitPost = (e: React.FormEvent) => {
+  const hasPollDraft = showPollInput && Boolean(pollQuestion.trim() || pollOptions.some((option) => option.trim()))
+  const hasValidPoll =
+    !showPollInput || (Boolean(pollQuestion.trim()) && pollOptions.filter((option) => option.trim()).length >= 2)
+  const canSubmit = Boolean(newPostContent.trim()) && hasValidPoll && !isCreating
+
+  const resetComposer = () => {
+    setNewPostContent('')
+    setImageUrl('')
+    setPollQuestion('')
+    setPollOptions(['', ''])
+    setShowImageInput(false)
+    setShowPollInput(false)
+  }
+
+  const handleSubmitPost = (e: FormEvent) => {
     e.preventDefault()
-    if (!newPostContent.trim()) return
-    createPost(newPostContent.trim(), {
-      onSuccess: () => {
-        setNewPostContent('')
-      }
-    })
+    if (!canSubmit) return
+
+    createPost(
+      {
+        content: newPostContent.trim(),
+        image: showImageInput ? imageUrl.trim() : undefined,
+        poll: showPollInput
+          ? {
+              question: pollQuestion.trim(),
+              options: pollOptions,
+            }
+          : undefined,
+      },
+      {
+        onSuccess: resetComposer,
+      },
+    )
   }
 
   return (
@@ -55,30 +86,94 @@ function Feed() {
           </div>
         </div>
 
+        {showImageInput && (
+          <label className="block">
+            <span className="sr-only">Image URL</span>
+            <input
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              placeholder="Paste an image URL"
+              className="w-full rounded-2xl bg-[#05070a] border border-white/10 px-4 py-3 text-sm text-primary placeholder-on-surface-variant/60 outline-none focus:border-electric-blue"
+              type="url"
+            />
+          </label>
+        )}
+
+        {showPollInput && (
+          <div className="rounded-2xl bg-[#05070a]/70 border border-white/10 p-4 space-y-3">
+            <label className="block">
+              <span className="sr-only">Poll question</span>
+              <input
+                value={pollQuestion}
+                onChange={(e) => setPollQuestion(e.target.value)}
+                placeholder="Ask a poll question"
+                className="w-full bg-transparent border-none text-sm font-semibold text-primary placeholder-on-surface-variant/60 outline-none"
+              />
+            </label>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {pollOptions.map((option, index) => (
+                <label key={index} className="block">
+                  <span className="sr-only">Poll option {index + 1}</span>
+                  <input
+                    value={option}
+                    onChange={(e) => {
+                      const next = [...pollOptions]
+                      next[index] = e.target.value
+                      setPollOptions(next)
+                    }}
+                    placeholder={`Option ${index + 1}`}
+                    className="w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-xs text-primary placeholder-on-surface-variant/60 outline-none focus:border-neon-green"
+                  />
+                </label>
+              ))}
+            </div>
+            {hasPollDraft && !hasValidPoll && (
+              <p className="text-[11px] text-error">Add a poll question and at least two options.</p>
+            )}
+          </div>
+        )}
+
         <div className="flex justify-between items-center border-t border-white/5 pt-4">
           <div className="flex gap-2 text-on-surface-variant">
-            <button type="button" className="material-symbols-outlined hover:text-neon-green p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-[20px]">image</button>
-            <button type="button" className="material-symbols-outlined hover:text-electric-blue p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-[20px]">poll</button>
+            <button
+              type="button"
+              onClick={() => setShowImageInput((shown) => !shown)}
+              className={`material-symbols-outlined p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-[20px] ${showImageInput ? 'text-neon-green bg-white/5' : 'hover:text-neon-green'}`}
+              title="Attach image"
+            >
+              image
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowPollInput((shown) => !shown)}
+              className={`material-symbols-outlined p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-[20px] ${showPollInput ? 'text-electric-blue bg-white/5' : 'hover:text-electric-blue'}`}
+              title="Add poll"
+            >
+              poll
+            </button>
             <button type="button" className="material-symbols-outlined hover:text-neon-green p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-[20px]">emoji_emotions</button>
           </div>
           
-          <button 
-            type="submit" 
-            disabled={isCreating || !newPostContent.trim()}
-            className="flex items-center gap-1.5 bg-neon-green text-black font-bold px-4 py-2 rounded-xl text-xs hover:shadow-[0_0_12px_rgba(204,255,0,0.4)] disabled:opacity-40 disabled:pointer-events-none transition-all active:scale-[0.98]"
-          >
-            {isCreating ? (
-              <>
-                <span className="material-symbols-outlined text-xs animate-spin">sync</span>
-                <span>Posting...</span>
-              </>
-            ) : (
-              <>
-                <span className="material-symbols-outlined text-xs font-black">send</span>
-                <span>Post Broadcast</span>
-              </>
-            )}
-          </button>
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] text-on-surface-variant/70">{newPostContent.length}/400</span>
+            <button 
+              type="submit" 
+              disabled={!canSubmit}
+              className="flex items-center gap-1.5 bg-neon-green text-black font-bold px-4 py-2 rounded-xl text-xs hover:shadow-[0_0_12px_rgba(204,255,0,0.4)] disabled:opacity-40 disabled:pointer-events-none transition-all active:scale-[0.98]"
+            >
+              {isCreating ? (
+                <>
+                  <span className="material-symbols-outlined text-xs animate-spin">sync</span>
+                  <span>Posting...</span>
+                </>
+              ) : (
+                <>
+                  <span className="material-symbols-outlined text-xs font-black">send</span>
+                  <span>Post Broadcast</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </form>
 

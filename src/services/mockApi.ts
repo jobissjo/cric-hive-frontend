@@ -60,6 +60,15 @@ export interface Post {
   }
 }
 
+export interface CreatePostInput {
+  content: string
+  image?: string
+  poll?: {
+    question: string
+    options: string[]
+  }
+}
+
 export interface Duel {
   id: string
   player1: { name: string; avatar: string; border: string }
@@ -369,11 +378,17 @@ export const mockApi = {
     return updated
   },
 
-  async createPost(content: string): Promise<Post[]> {
+  async createPost(input: CreatePostInput): Promise<Post[]> {
     await delay(250)
     const posts = getStored<Post[]>(STORAGE_KEYS.POSTS, initialPosts)
+    const content = input.content.trim()
+    const image = input.image?.trim()
+    const pollQuestion = input.poll?.question.trim()
+    const pollOptions = input.poll?.options.map((option) => option.trim()).filter(Boolean).slice(0, 4) ?? []
+    const postId = `p-${Date.now()}`
+
     const newPost: Post = {
-      id: `p-${Date.now()}`,
+      id: postId,
       author: 'V. Kohli',
       avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDtA5hTcX3SQLPzQLmJ7u0jjENR40XNuI_cqbJbCHRXih623sMuWk6ng1WEkjy11DiajJ5el445dwymFx6ouWLk6fb0I3t2Cegb6_kpFZFpJiCcFipVgANiXsGOWw0Uj8gjWrNZtUwUjrkJGuJmFwqprF3RTp1-k3vR2UisWoTDP2cSdWXQiyUlCrDknXy3VYkdNChHWYmA9d-QaMYv1Mz__4sOMMcbsAgAoPN-FNQ3WzMEDx8l0tbMjZKTX3_uyQoNOFT3CppKfGs',
       handle: '@KingKohli',
@@ -382,6 +397,19 @@ export const mockApi = {
       likes: 0,
       comments: 0,
       shares: 0,
+      image: image || undefined,
+      poll:
+        pollQuestion && pollOptions.length >= 2
+          ? {
+              id: `poll-${postId}`,
+              question: pollQuestion,
+              options: pollOptions.map((option, index) => ({
+                text: option,
+                percentage: Math.round(100 / pollOptions.length),
+                borderLeft: index % 2 === 0 ? '#00DAF3' : '#CCFF00',
+              })),
+            }
+          : undefined,
     }
     const updated = [newPost, ...posts]
     setStored(STORAGE_KEYS.POSTS, updated)
