@@ -1,4 +1,4 @@
-import { Link, Outlet, ScrollRestoration, createRootRoute, HeadContent, Scripts, useRouterState } from '@tanstack/react-router'
+import { Link, ScrollRestoration, createRootRoute, HeadContent, Scripts, useRouterState } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState, useEffect } from 'react'
 import appCss from '../styles.css?url'
@@ -41,8 +41,36 @@ function Shell({ children }: { children: React.ReactNode }) {
 function RootDocument({ children }: { children: React.ReactNode }) {
   // Mobile search toggle
   const [searchFocused, setSearchFocused] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [passwordPanelOpen, setPasswordPanelOpen] = useState(false)
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [passwordMessage, setPasswordMessage] = useState('')
+  const [logoutMessage, setLogoutMessage] = useState('')
+  const [notificationPreferences, setNotificationPreferences] = useState({
+    matchAlerts: true,
+    predictionResults: true,
+    communityMentions: false,
+  })
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const isAdminRoute = pathname.startsWith('/admin')
+
+  const handlePasswordSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!currentPassword.trim() || !newPassword.trim()) {
+      setPasswordMessage('Enter both passwords to continue.')
+      return
+    }
+
+    setCurrentPassword('')
+    setNewPassword('')
+    setPasswordMessage('Password update request saved.')
+  }
+
+  const handleLogout = () => {
+    setLogoutMessage('You have been logged out locally.')
+    setPasswordPanelOpen(false)
+  }
   
   // Parallax parallax effect for background
   useEffect(() => {
@@ -140,13 +168,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 <span className="font-label-md text-label-md">Predictions</span>
               </Link>
 
-              
-              <div className="opacity-50 pointer-events-none mt-2">
-                <div className="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant">
-                  <span className="material-symbols-outlined">groups</span>
-                  <span className="font-label-md text-label-md">Communities</span>
-                </div>
-              </div>
+              <Link 
+                to="/communities" 
+                className="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant hover:text-neon-green hover:bg-neon-green/5 hover:translate-x-0.5 transition-all duration-200"
+                activeProps={{ className: 'flex items-center gap-sm px-md py-sm rounded-xl text-neon-green font-bold border-r-4 border-neon-green bg-neon-green/10' }}
+              >
+                <span className="material-symbols-outlined">groups</span>
+                <span className="font-label-md text-label-md">Communities</span>
+              </Link>
             </nav>
 
             <Link 
@@ -197,7 +226,134 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 <HeaderTicker />
                 
                 <div className="flex gap-sm border-l border-white/10 pl-md items-center">
-                  <button className="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">settings</button>
+                  <div className="relative">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSettingsOpen((open) => !open)
+                        setLogoutMessage('')
+                      }}
+                      className={`material-symbols-outlined transition-colors cursor-pointer ${
+                        settingsOpen ? 'text-neon-green' : 'text-on-surface-variant hover:text-primary'
+                      }`}
+                      aria-label="Open settings"
+                      aria-expanded={settingsOpen}
+                    >
+                      settings
+                    </button>
+
+                    {settingsOpen && (
+                      <div className="absolute right-0 top-10 z-50 w-[min(22rem,calc(100vw-2rem))] rounded-3xl border border-white/10 bg-surface-container-lowest/95 p-4 text-left shadow-2xl backdrop-blur-xl">
+                        <div className="mb-4 flex items-start justify-between gap-4 border-b border-white/10 pb-3">
+                          <div>
+                            <h3 className="font-display text-lg font-black text-primary">Settings</h3>
+                            <p className="text-xs text-on-surface-variant">Account controls and preferences</p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setSettingsOpen(false)}
+                            className="material-symbols-outlined rounded-xl p-1 text-on-surface-variant hover:bg-white/5 hover:text-primary"
+                            aria-label="Close settings"
+                          >
+                            close
+                          </button>
+                        </div>
+
+                        <div className="space-y-3">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setPasswordPanelOpen((open) => !open)
+                              setPasswordMessage('')
+                            }}
+                            className="flex w-full items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.03] p-3 text-left hover:border-neon-green/30 hover:bg-white/[0.06]"
+                          >
+                            <span className="material-symbols-outlined text-neon-green">lock_reset</span>
+                            <span>
+                              <span className="block text-sm font-black text-primary">Change Password</span>
+                              <span className="text-xs text-on-surface-variant">Update your account password</span>
+                            </span>
+                          </button>
+
+                          {passwordPanelOpen && (
+                            <form onSubmit={handlePasswordSubmit} className="space-y-3 rounded-2xl border border-white/5 bg-[#05070a]/70 p-3">
+                              <label className="block">
+                                <span className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
+                                  Current password
+                                </span>
+                                <input
+                                  value={currentPassword}
+                                  onChange={(event) => setCurrentPassword(event.target.value)}
+                                  type="password"
+                                  className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-primary outline-none focus:border-neon-green"
+                                />
+                              </label>
+                              <label className="block">
+                                <span className="mb-1 block text-[10px] font-black uppercase tracking-wider text-on-surface-variant">
+                                  New password
+                                </span>
+                                <input
+                                  value={newPassword}
+                                  onChange={(event) => setNewPassword(event.target.value)}
+                                  type="password"
+                                  className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-primary outline-none focus:border-neon-green"
+                                />
+                              </label>
+                              <button type="submit" className="w-full rounded-xl bg-neon-green px-3 py-2 text-xs font-black text-black">
+                                Save Password
+                              </button>
+                              {passwordMessage && <p className="text-xs text-on-surface-variant">{passwordMessage}</p>}
+                            </form>
+                          )}
+
+                          <div className="rounded-2xl border border-white/5 bg-white/[0.03] p-3">
+                            <div className="mb-3 flex items-center gap-3">
+                              <span className="material-symbols-outlined text-electric-blue">notifications</span>
+                              <div>
+                                <p className="text-sm font-black text-primary">Notification Preferences</p>
+                                <p className="text-xs text-on-surface-variant">Choose what CricHive should alert you about</p>
+                              </div>
+                            </div>
+                            <div className="space-y-2">
+                              {[
+                                ['matchAlerts', 'Live match alerts'],
+                                ['predictionResults', 'Prediction results'],
+                                ['communityMentions', 'Community mentions'],
+                              ].map(([key, label]) => (
+                                <label key={key} className="flex items-center justify-between gap-3 rounded-xl bg-[#05070a]/60 px-3 py-2">
+                                  <span className="text-xs font-bold text-primary">{label}</span>
+                                  <input
+                                    checked={notificationPreferences[key as keyof typeof notificationPreferences]}
+                                    onChange={(event) =>
+                                      setNotificationPreferences((current) => ({
+                                        ...current,
+                                        [key]: event.target.checked,
+                                      }))
+                                    }
+                                    type="checkbox"
+                                    className="h-4 w-4 accent-neon-green"
+                                  />
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={handleLogout}
+                            className="flex w-full items-center gap-3 rounded-2xl border border-red-400/20 bg-red-500/10 p-3 text-left hover:border-red-300/40"
+                          >
+                            <span className="material-symbols-outlined text-red-300">logout</span>
+                            <span>
+                              <span className="block text-sm font-black text-red-200">Logout</span>
+                              <span className="text-xs text-red-200/70">End this local CricHive session</span>
+                            </span>
+                          </button>
+                          {logoutMessage && <p className="rounded-xl bg-white/5 px-3 py-2 text-xs text-on-surface-variant">{logoutMessage}</p>}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                   <button className="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">help</button>
               <Link to="/profile" className="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
                 <img 
@@ -230,6 +386,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           </Link>
           <Link to="/predictions" className="flex flex-col items-center gap-xs text-on-surface-variant" activeProps={{ className: 'text-primary' }}>
             <span className="material-symbols-outlined">query_stats</span>
+          </Link>
+          <Link to="/communities" className="flex flex-col items-center gap-xs text-on-surface-variant" activeProps={{ className: 'text-primary' }}>
+            <span className="material-symbols-outlined">groups</span>
           </Link>
           <Link to="/profile" className="flex flex-col items-center gap-xs text-on-surface-variant" activeProps={{ className: 'text-primary' }}>
             <span className="material-symbols-outlined">person</span>

@@ -13,6 +13,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PredictionsRouteImport } from './routes/predictions'
 import { Route as MatchesRouteImport } from './routes/matches'
 import { Route as FeedRouteImport } from './routes/feed'
+import { Route as CommunitiesRouteImport } from './routes/communities'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -37,6 +38,11 @@ const FeedRoute = FeedRouteImport.update({
   path: '/feed',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CommunitiesRoute = CommunitiesRouteImport.update({
+  id: '/communities',
+  path: '/communities',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/communities': typeof CommunitiesRoute
   '/feed': typeof FeedRoute
   '/matches': typeof MatchesRoute
   '/predictions': typeof PredictionsRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/communities': typeof CommunitiesRoute
   '/feed': typeof FeedRoute
   '/matches': typeof MatchesRoute
   '/predictions': typeof PredictionsRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/communities': typeof CommunitiesRoute
   '/feed': typeof FeedRoute
   '/matches': typeof MatchesRoute
   '/predictions': typeof PredictionsRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/communities'
     | '/feed'
     | '/matches'
     | '/predictions'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/communities'
     | '/feed'
     | '/matches'
     | '/predictions'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/communities'
     | '/feed'
     | '/matches'
     | '/predictions'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
+  CommunitiesRoute: typeof CommunitiesRoute
   FeedRoute: typeof FeedRoute
   MatchesRoute: typeof MatchesRoute
   PredictionsRoute: typeof PredictionsRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/communities': {
+      id: '/communities'
+      path: '/communities'
+      fullPath: '/communities'
+      preLoaderRoute: typeof CommunitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
+  CommunitiesRoute: CommunitiesRoute,
   FeedRoute: FeedRoute,
   MatchesRoute: MatchesRoute,
   PredictionsRoute: PredictionsRoute,
