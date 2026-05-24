@@ -1,4 +1,4 @@
-import { Link, ScrollRestoration, createRootRoute, HeadContent, Scripts, useRouterState } from '@tanstack/react-router'
+import { Link, createRootRoute, HeadContent, Scripts, useRouterState } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState, useEffect } from 'react'
 import appCss from '../styles.css?url'
@@ -95,7 +95,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         </head>
         <body className="bg-[#090d12] text-on-surface font-body-md overflow-x-hidden custom-scrollbar">
           <main className="min-h-screen">{children}</main>
-          <ScrollRestoration />
           <Scripts />
         </body>
       </html>
@@ -404,7 +403,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <span className="absolute right-16 bg-surface-container-highest text-primary px-sm py-xs rounded-lg text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-white/10">New Discussion</span>
         </Link>
 
-        <ScrollRestoration />
         <Scripts />
       </body>
     </html>
