@@ -123,85 +123,89 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <div className="relative z-10 min-h-screen flex flex-col md:flex-row">
           
           {/* SideNavBar Layout (Hidden on Mobile) */}
-          <aside className="fixed left-0 top-0 h-screen w-[280px] bg-surface/80 backdrop-blur-xl border-r border-white/10 shadow-2xl flex flex-col py-lg px-md gap-base z-40 hidden md:flex">
-            <div className="mb-lg px-2 flex flex-col gap-xs">
-              <h1 className="font-display text-3xl font-black text-primary tracking-tighter">CricHive</h1>
-              <p className="font-label-sm text-xs text-on-surface-variant/70 uppercase tracking-widest">Premium Cricket Social</p>
+          <aside className="fixed left-0 top-0 h-screen w-[260px] bg-[#06090e]/75 backdrop-blur-2xl border-r border-white/5 shadow-[10px_0_40px_rgba(0,0,0,0.4)] flex flex-col p-5 gap-6 z-40 hidden md:flex">
+            <div className="mb-4 px-2 flex flex-col gap-1">
+              <h1 className="font-display text-3xl font-black text-white tracking-tighter">
+                Cric<span className="text-neon-green">Hive</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-neon-green inline-block ml-1 animate-pulse animate-duration-1000" />
+              </h1>
+              <p className="font-label-sm text-[10px] text-on-surface-variant/70 uppercase tracking-widest font-bold">Premium Cricket Social</p>
             </div>
             
-            <nav className="flex flex-col gap-xs flex-1">
+            <nav className="flex flex-col gap-2 flex-1">
               <Link 
                 to="/" 
-                className="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant hover:text-neon-green hover:bg-neon-green/5 hover:translate-x-0.5 transition-all duration-200"
-                activeProps={{ className: 'flex items-center gap-sm px-md py-sm rounded-xl text-neon-green font-bold border-r-4 border-neon-green bg-neon-green/10' }}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-white hover:bg-white/[0.04] hover:translate-x-1 transition-all duration-300"
+                activeProps={{ className: 'flex items-center gap-3 px-4 py-3 rounded-xl text-neon-green font-bold border-l-2 border-neon-green bg-gradient-to-r from-neon-green/10 to-transparent shadow-[inset_4px_0_12px_rgba(215,255,0,0.05)]' }}
                 activeOptions={{ exact: true }}
               >
-                <span className="material-symbols-outlined">home</span>
-                <span className="font-label-md text-label-md">Home</span>
+                <span className="material-symbols-outlined text-[22px]">home</span>
+                <span className="font-label-md text-sm tracking-wide">Home</span>
               </Link>
               
               <Link 
                 to="/feed" 
-                className="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant hover:text-neon-green hover:bg-neon-green/5 hover:translate-x-0.5 transition-all duration-200"
-                activeProps={{ className: 'flex items-center gap-sm px-md py-sm rounded-xl text-neon-green font-bold border-r-4 border-neon-green bg-neon-green/10' }}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-white hover:bg-white/[0.04] hover:translate-x-1 transition-all duration-300"
+                activeProps={{ className: 'flex items-center gap-3 px-4 py-3 rounded-xl text-neon-green font-bold border-l-2 border-neon-green bg-gradient-to-r from-neon-green/10 to-transparent shadow-[inset_4px_0_12px_rgba(215,255,0,0.05)]' }}
               >
-                <span className="material-symbols-outlined">rss_feed</span>
-                <span className="font-label-md text-label-md">Feed</span>
+                <span className="material-symbols-outlined text-[22px]">rss_feed</span>
+                <span className="font-label-md text-sm tracking-wide">Feed</span>
               </Link>
               
               <Link 
                 to="/matches" 
-                className="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant hover:text-neon-green hover:bg-neon-green/5 hover:translate-x-0.5 transition-all duration-200"
-                activeProps={{ className: 'flex items-center gap-sm px-md py-sm rounded-xl text-neon-green font-bold border-r-4 border-neon-green bg-neon-green/10' }}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-white hover:bg-white/[0.04] hover:translate-x-1 transition-all duration-300"
+                activeProps={{ className: 'flex items-center gap-3 px-4 py-3 rounded-xl text-neon-green font-bold border-l-2 border-neon-green bg-gradient-to-r from-neon-green/10 to-transparent shadow-[inset_4px_0_12px_rgba(215,255,0,0.05)]' }}
               >
-                <span className="material-symbols-outlined">sports_cricket</span>
-                <span className="font-label-md text-label-md">Matches</span>
+                <span className="material-symbols-outlined text-[22px]">sports_cricket</span>
+                <span className="font-label-md text-sm tracking-wide">Matches</span>
               </Link>
               
               <Link 
                 to="/predictions" 
-                className="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant hover:text-neon-green hover:bg-neon-green/5 hover:translate-x-0.5 transition-all duration-200"
-                activeProps={{ className: 'flex items-center gap-sm px-md py-sm rounded-xl text-neon-green font-bold border-r-4 border-neon-green bg-neon-green/10' }}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-white hover:bg-white/[0.04] hover:translate-x-1 transition-all duration-300"
+                activeProps={{ className: 'flex items-center gap-3 px-4 py-3 rounded-xl text-neon-green font-bold border-l-2 border-neon-green bg-gradient-to-r from-neon-green/10 to-transparent shadow-[inset_4px_0_12px_rgba(215,255,0,0.05)]' }}
               >
-                <span className="material-symbols-outlined">query_stats</span>
-                <span className="font-label-md text-label-md">Predictions</span>
+                <span className="material-symbols-outlined text-[22px]">query_stats</span>
+                <span className="font-label-md text-sm tracking-wide">Predictions</span>
               </Link>
 
               <Link 
                 to="/communities" 
-                className="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant hover:text-neon-green hover:bg-neon-green/5 hover:translate-x-0.5 transition-all duration-200"
-                activeProps={{ className: 'flex items-center gap-sm px-md py-sm rounded-xl text-neon-green font-bold border-r-4 border-neon-green bg-neon-green/10' }}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-white hover:bg-white/[0.04] hover:translate-x-1 transition-all duration-300"
+                activeProps={{ className: 'flex items-center gap-3 px-4 py-3 rounded-xl text-neon-green font-bold border-l-2 border-neon-green bg-gradient-to-r from-neon-green/10 to-transparent shadow-[inset_4px_0_12px_rgba(215,255,0,0.05)]' }}
               >
-                <span className="material-symbols-outlined">groups</span>
-                <span className="font-label-md text-label-md">Communities</span>
+                <span className="material-symbols-outlined text-[22px]">groups</span>
+                <span className="font-label-md text-sm tracking-wide">Communities</span>
               </Link>
             </nav>
 
             <Link 
               to="/feed" 
-              className="w-full bg-neon-green text-black font-bold py-sm rounded-xl hover:shadow-[0_0_15px_rgba(204,255,0,0.5)] transition-all active:scale-[0.98] text-center"
+              className="w-full bg-neon-green text-black font-black py-3 rounded-xl hover:shadow-[0_0_20px_rgba(215,255,0,0.35)] transition-all active:scale-[0.96] text-center text-xs tracking-wider uppercase flex items-center justify-center gap-2 hover:bg-[#c3f400] shadow-[0_0_12px_rgba(215,255,0,0.15)]"
             >
-              Create Post
+              <span className="material-symbols-outlined text-sm font-black">add_circle</span>
+              <span>Create Post</span>
             </Link>
 
-            <div className="mt-auto flex items-center gap-sm pt-md border-t border-white/5">
-              <Link to="/profile" className="flex items-center gap-sm w-full hover:bg-neon-green/5 rounded-xl px-sm py-xs">
+            <div className="mt-auto pt-4 border-t border-white/5">
+              <Link to="/profile" className="flex items-center gap-3 w-full bg-white/[0.02] border border-white/5 rounded-2xl p-3 hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300 group">
                 <img
                   alt="Profile avatar"
-                  className="w-10 h-10 rounded-full border border-primary/20 object-cover"
+                  className="w-9 h-9 rounded-full border border-primary/20 object-cover group-hover:scale-105 transition-transform"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtA5hTcX3SQLPzQLmJ7u0jjENR40XNuI_cqbJbCHRXih623sMuWk6ng1WEkjy11DiajJ5el445dwymFx6ouWLk6fb0I3t2Cegb6_kpFZFpJiCcFipVgANiXsGOWw0Uj8gjWrNZtUwUjrkJGuJmFwqprF3RTp1-k3vR2UisWoTDP2cSdWXQiyUlCrDknXy3VYkdNChHWYmA9d-QaMYv1Mz__4sOMMcbsAgAoPN-FNQ3WzMEDx8l0tbMjZKTX3_uyQoNOFT3CppKfGs"
                 />
-                <div className="flex-1 text-left">
-                  <div className="font-label-md text-label-md font-semibold text-on-surface">Your Name</div>
-                  <div className="text-xs text-on-surface-variant">View profile</div>
+                <div className="flex-1 text-left min-w-0">
+                  <div className="font-semibold text-xs text-white truncate group-hover:text-neon-green transition-colors">V. Kohli</div>
+                  <div className="text-[10px] text-on-surface-variant truncate">@KingKohli</div>
                 </div>
-                <span className="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+                <span className="material-symbols-outlined text-on-surface-variant group-hover:translate-x-0.5 group-hover:text-neon-green transition-all duration-300 text-sm">chevron_right</span>
               </Link>
             </div>
           </aside>
           
           {/* Main Outlet & Topbar Frame */}
-          <div className="flex-1 flex flex-col md:ml-[280px]">
+          <div className="flex-1 flex flex-col md:ml-[260px]">
             
             {/* Topbar Layout */}
             <header className="sticky top-0 z-30 bg-surface/80 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20">

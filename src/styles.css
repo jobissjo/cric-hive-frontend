@@ -1,56 +1,59 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Montserrat", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-heading-accent: "Sora", sans-serif;
   
-  --color-neon-green: #CCFF00;
+  --color-neon-green: #D7FF00;
+  --color-neon-lime: #D7FF00;
   --color-electric-blue: #00DAF3;
-  --color-obsidian-bg: #0F1419;
+  --color-obsidian-bg: #040608;
   
-  /* Additional tokens matching Stitch design specs */
-  --color-inverse-surface: #dee3ea;
-  --color-surface-container: #1b2025;
-  --color-on-surface: #dee3ea;
-  --color-surface-container-lowest: #0a0f14;
-  --color-inverse-on-surface: #2c3137;
-  --color-on-primary-container: #556d00;
-  --color-on-primary: #283500;
-  --color-surface-container-high: #252a30;
-  --color-outline: #8e9379;
-  --color-surface-container-low: #171c21;
+  /* System UI Color tokens matching premium sport dark theme */
+  --color-inverse-surface: #f1f5f9;
+  --color-surface-container: #0b1118;
+  --color-on-surface: #f8fafc;
+  --color-surface-container-lowest: #020406;
+  --color-inverse-on-surface: #0f172a;
+  --color-on-primary-container: #84cc16;
+  --color-on-primary: #020406;
+  --color-surface-container-high: #151e29;
+  --color-outline: #475569;
+  --color-surface-container-low: #0a0f15;
   --color-secondary-container: #00e3fd;
-  --color-on-surface-variant: #c4c9ac;
-  --color-surface: #0f1419;
-  --color-primary-container: #c3f400;
-  --color-surface-container-highest: #30353b;
-  --color-surface-dim: #0f1419;
-  --color-surface-variant: #30353b;
-  --color-error: #ffb4ab;
-  --color-secondary: #bdf4ff;
-  --color-on-background: #dee3ea;
+  --color-on-surface-variant: #94a3b8;
+  --color-surface: #070c12;
+  --color-primary-container: #D7FF00;
+  --color-surface-container-highest: #1e293b;
+  --color-surface-dim: #05080c;
+  --color-surface-variant: #1e293b;
+  --color-error: #ef4444;
+  --color-secondary: #00DAF3;
+  --color-on-background: #f8fafc;
 
-  /* Custom Spacing Scale matching Stitch Specs */
+  /* Custom Spacing Scale - 8px Grid System */
   --spacing-xs: 4px;
   --spacing-base: 8px;
   --spacing-sm: 12px;
-  --spacing-md: 24px;
-  --spacing-lg: 40px;
-  --spacing-xl: 64px;
-  --spacing-gutter: 20px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --spacing-gutter: 24px;
   --spacing-margin-mobile: 16px;
-  --spacing-margin-desktop: 48px;
+  --spacing-margin-desktop: 40px;
 
-  /* Custom Border Radius matching Stitch Specs */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  /* Custom Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
 }
 
-/* Custom Typography Utilities matching Stitch Specs */
+/* Typography styles matching Stitch specs */
 .font-label-md {
   font-family: var(--font-sans);
   font-weight: 600;
@@ -71,71 +74,47 @@
 }
 
 :root {
-  --sea-ink: #173a40;
-  --sea-ink-soft: #416166;
-  --lagoon: #4fb8b2;
-  --lagoon-deep: #328f97;
-  --palm: #2f6a4a;
-  --sand: #e7f0e8;
-  --foam: #f3faf5;
-  --surface: rgba(255, 255, 255, 0.74);
-  --surface-strong: rgba(255, 255, 255, 0.9);
-  --line: rgba(23, 58, 64, 0.14);
-  --inset-glint: rgba(255, 255, 255, 0.82);
-  --kicker: rgba(47, 106, 74, 0.9);
-  --bg-base: #e7f3ec;
-  --header-bg: rgba(251, 255, 248, 0.84);
-  --chip-bg: rgba(255, 255, 255, 0.8);
-  --chip-line: rgba(47, 106, 74, 0.18);
-  --link-bg-hover: rgba(255, 255, 255, 0.9);
-  --hero-a: rgba(79, 184, 178, 0.36);
-  --hero-b: rgba(47, 106, 74, 0.2);
+  --sea-ink: #f8fafc;
+  --sea-ink-soft: #94a3b8;
+  --lagoon: #D7FF00;
+  --lagoon-deep: #00DAF3;
+  --palm: #22c55e;
+  --sand: #070a0e;
+  --foam: #030507;
+  --surface: rgba(11, 17, 26, 0.75);
+  --surface-strong: rgba(4, 7, 10, 0.94);
+  --line: rgba(215, 255, 0, 0.08);
+  --inset-glint: rgba(255, 255, 255, 0.04);
+  --kicker: #D7FF00;
+  --bg-base: #040608;
+  --header-bg: rgba(4, 6, 8, 0.78);
+  --chip-bg: rgba(11, 17, 26, 0.85);
+  --chip-line: rgba(0, 218, 243, 0.15);
+  --link-bg-hover: rgba(215, 255, 0, 0.06);
+  --hero-a: rgba(215, 255, 0, 0.045);
+  --hero-b: rgba(0, 218, 243, 0.035);
 }
 
 :root[data-theme="dark"] {
-  --sea-ink: #d7ece8;
-  --sea-ink-soft: #afcdc8;
-  --lagoon: #60d7cf;
-  --lagoon-deep: #8de5db;
-  --palm: #6ec89a;
-  --sand: #0f1a1e;
-  --foam: #101d22;
-  --surface: rgba(16, 30, 34, 0.8);
-  --surface-strong: rgba(15, 27, 31, 0.92);
-  --line: rgba(141, 229, 219, 0.18);
-  --inset-glint: rgba(194, 247, 238, 0.14);
-  --kicker: #b8efe5;
-  --bg-base: #0a1418;
-  --header-bg: rgba(10, 20, 24, 0.8);
-  --chip-bg: rgba(13, 28, 32, 0.9);
-  --chip-line: rgba(141, 229, 219, 0.24);
-  --link-bg-hover: rgba(24, 44, 49, 0.8);
-  --hero-a: rgba(96, 215, 207, 0.18);
-  --hero-b: rgba(110, 200, 154, 0.12);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --sea-ink: #d7ece8;
-    --sea-ink-soft: #afcdc8;
-    --lagoon: #60d7cf;
-    --lagoon-deep: #8de5db;
-    --palm: #6ec89a;
-    --sand: #0f1a1e;
-    --foam: #101d22;
-    --surface: rgba(16, 30, 34, 0.8);
-    --surface-strong: rgba(15, 27, 31, 0.92);
-    --line: rgba(141, 229, 219, 0.18);
-    --inset-glint: rgba(194, 247, 238, 0.14);
-    --kicker: #b8efe5;
-    --bg-base: #0a1418;
-    --header-bg: rgba(10, 20, 24, 0.8);
-    --chip-bg: rgba(13, 28, 32, 0.9);
-    --chip-line: rgba(141, 229, 219, 0.24);
-    --link-bg-hover: rgba(24, 44, 49, 0.8);
-    --hero-a: rgba(96, 215, 207, 0.18);
-    --hero-b: rgba(110, 200, 154, 0.12);
-  }
+  --sea-ink: #f8fafc;
+  --sea-ink-soft: #94a3b8;
+  --lagoon: #D7FF00;
+  --lagoon-deep: #00DAF3;
+  --palm: #22c55e;
+  --sand: #070a0e;
+  --foam: #030507;
+  --surface: rgba(11, 17, 26, 0.75);
+  --surface-strong: rgba(4, 7, 10, 0.94);
+  --line: rgba(215, 255, 0, 0.08);
+  --inset-glint: rgba(255, 255, 255, 0.04);
+  --kicker: #D7FF00;
+  --bg-base: #040608;
+  --header-bg: rgba(4, 6, 8, 0.78);
+  --chip-bg: rgba(11, 17, 26, 0.85);
+  --chip-line: rgba(0, 218, 243, 0.15);
+  --link-bg-hover: rgba(215, 255, 0, 0.06);
+  --hero-a: rgba(215, 255, 0, 0.045);
+  --hero-b: rgba(0, 218, 243, 0.035);
 }
 
 * {
@@ -153,168 +132,131 @@ body {
   color: var(--sea-ink);
   font-family: var(--font-sans);
   background-color: var(--bg-base);
+  /* Stadium-inspired multi-layered radial spotlight backgrounds */
   background:
-    radial-gradient(1100px 620px at -8% -10%, var(--hero-a), transparent 58%),
-    radial-gradient(1050px 620px at 112% -12%, var(--hero-b), transparent 62%),
-    radial-gradient(720px 380px at 50% 115%, rgba(79, 184, 178, 0.1), transparent 68%),
-    linear-gradient(180deg, color-mix(in oklab, var(--sand) 68%, white) 0%, var(--foam) 44%, var(--bg-base) 100%);
+    radial-gradient(1200px 700px at -10% -15%, var(--hero-a), transparent 60%),
+    radial-gradient(1100px 700px at 110% -10%, var(--hero-b), transparent 65%),
+    radial-gradient(750px 420px at 50% 110%, rgba(215, 255, 0, 0.03), transparent 70%),
+    linear-gradient(180deg, #040608 0%, #06090e 50%, #030507 100%);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Ambient lighting floodlight rays in the background */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.28;
+  opacity: 0.15;
   background:
-    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.8), transparent 34%),
-    radial-gradient(circle at 78% 26%, rgba(79, 184, 178, 0.2), transparent 42%),
-    radial-gradient(circle at 42% 82%, rgba(47, 106, 74, 0.14), transparent 36%);
+    radial-gradient(circle at 10% 20%, rgba(215, 255, 0, 0.08), transparent 30%),
+    radial-gradient(circle at 85% 30%, rgba(0, 218, 243, 0.06), transparent 35%),
+    radial-gradient(circle at 50% 80%, rgba(215, 255, 0, 0.04), transparent 40%);
 }
 
+/* Stadium seating and pitch structure layout lines (grid texture) */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.14;
+  opacity: 0.06;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%);
+    linear-gradient(rgba(215, 255, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(215, 255, 0, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at 50% 30%, black, transparent 80%);
 }
 
 a {
-  color: var(--lagoon-deep);
-  text-decoration-color: rgba(50, 143, 151, 0.4);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  color: var(--color-neon-lime);
+  text-decoration: none;
 }
 
 a:hover {
-  color: #246f76;
-}
-
-code {
-  font-size: 0.9em;
-  border: 1px solid var(--line);
-  background: color-mix(in oklab, var(--surface-strong) 82%, white 18%);
-  border-radius: 7px;
-  padding: 2px 7px;
-}
-
-pre code {
-  border: 0;
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  font-size: inherit;
-  color: inherit;
+  filter: brightness(1.1);
 }
 
 .page-wrap {
-  width: min(1080px, calc(100% - 2rem));
+  width: min(1360px, calc(100% - 2.5rem));
   margin-inline: auto;
 }
 
 .display-title {
-  font-family: "Fraunces", Georgia, serif;
-}
-
-.island-shell {
-  border: 1px solid var(--line);
-  background: linear-gradient(165deg, var(--surface-strong), var(--surface));
-  box-shadow:
-    0 1px 0 var(--inset-glint) inset,
-    0 22px 44px rgba(30, 90, 72, 0.1),
-    0 6px 18px rgba(23, 58, 64, 0.08);
-  backdrop-filter: blur(4px);
-}
-
-.feature-card {
-  background: linear-gradient(165deg, color-mix(in oklab, var(--surface-strong) 93%, white 7%), var(--surface));
-  box-shadow:
-    0 1px 0 var(--inset-glint) inset,
-    0 18px 34px rgba(30, 90, 72, 0.1),
-    0 4px 14px rgba(23, 58, 64, 0.06);
-}
-
-.feature-card:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in oklab, var(--lagoon-deep) 35%, var(--line));
-}
-
-button,
-.island-shell,
-a {
-  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease,
-    transform 180ms ease;
-}
-
-.island-kicker {
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.69rem;
-  color: var(--kicker);
 }
 
-.nav-link {
+.display-sora {
+  font-family: var(--font-heading-accent);
+}
+
+/* Premium Glassmorphism Cards */
+.glass-panel {
+  background: rgba(8, 12, 19, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 8px 32px 0 rgba(0, 0, 0, 0.35);
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  border-color: rgba(215, 255, 0, 0.15);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 0 30px rgba(215, 255, 0, 0.04),
+    0 16px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Deep stadium backlight glow effects */
+.ambient-glow-lime {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  color: var(--sea-ink-soft);
 }
-
-.nav-link::after {
+.ambient-glow-lime::before {
   content: "";
   position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 100%;
-  height: 2px;
-  transform: scaleX(0);
-  transform-origin: left;
-  background: linear-gradient(90deg, var(--lagoon), #7ed3bf);
-  transition: transform 170ms ease;
+  inset: -1px;
+  background: radial-gradient(circle at 50% 50%, rgba(215, 255, 0, 0.08), transparent 70%);
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
 }
 
-.nav-link:hover,
-.nav-link.is-active {
-  color: var(--sea-ink);
+.ambient-glow-cyan {
+  position: relative;
+}
+.ambient-glow-cyan::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 218, 243, 0.08), transparent 70%);
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
 }
 
-.nav-link:hover::after,
-.nav-link.is-active::after {
-  transform: scaleX(1);
-}
-
-@media (max-width: 640px) {
-  .nav-link::after {
-    bottom: -4px;
-  }
-}
-
-.site-footer {
-  border-top: 1px solid var(--line);
-  background: color-mix(in oklab, var(--header-bg) 84%, transparent 16%);
+/* Micro-animations */
+button,
+.glass-panel,
+a {
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .rise-in {
-  animation: rise-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: rise-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -322,43 +264,74 @@ a {
   }
 }
 
-/* CricHive Custom Glassmorphic Utilities */
-.glass-panel {
-  background: rgba(18, 24, 32, 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.neon-glow-primary:hover {
-  box-shadow: 0 0 15px rgba(204, 255, 0, 0.3);
-  border-color: rgba(204, 255, 0, 0.5);
-}
-
+/* Live indicators and pulsing states */
 .live-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  position: relative;
+  display: inline-flex;
+}
+.live-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--color-neon-lime);
+  opacity: 0;
+  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  80%, 100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
 }
 
-.mesh-bg {
-  background-color: #0A0F14;
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(0, 227, 253, 0.05) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(171, 214, 0, 0.05) 0px, transparent 50%);
+/* Sound Waveform Pulse Animation for Live Rooms */
+.waveform-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 14px;
+  width: 18px;
+}
+.waveform-bar {
+  width: 2.5px;
+  background-color: var(--color-neon-lime);
+  border-radius: 1px;
+  animation: waveform-pulse 1s ease-in-out infinite alternate;
+}
+.waveform-bar:nth-child(1) { height: 30%; animation-delay: 0.1s; }
+.waveform-bar:nth-child(2) { height: 80%; animation-delay: 0.3s; }
+.waveform-bar:nth-child(3) { height: 50%; animation-delay: 0.5s; }
+.waveform-bar:nth-child(4) { height: 100%; animation-delay: 0.2s; }
+
+@keyframes waveform-pulse {
+  0% {
+    transform: scaleY(0.3);
+  }
+  100% {
+    transform: scaleY(1);
+  }
 }
 
+/* Custom Scrollbar Styles matching sport UI */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #0a0f14;
+  background: rgba(4, 6, 8, 0.5);
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #30353b;
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(215, 255, 0, 0.25);
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -367,4 +340,41 @@ a {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Sparkle/Glow highlights */
+.neon-glow-btn {
+  box-shadow: 0 0 20px rgba(215, 255, 0, 0.18);
+  border: 1px solid rgba(215, 255, 0, 0.35);
+}
+.neon-glow-btn:hover {
+  box-shadow: 0 0 28px rgba(215, 255, 0, 0.35);
+  background-color: var(--color-neon-lime);
+  color: #020406;
+}
+
+.active-glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 218, 243, 0.18);
+  border: 1px solid rgba(0, 218, 243, 0.35);
+}
+
+/* Shimmer Loading Skeleton */
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.08) 37%,
+    rgba(255, 255, 255, 0.03) 50%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
